@@ -1,12 +1,10 @@
 import axios from 'axios';
 import { storageService } from './storageService';
 import * as Network from 'expo-network';
-
-// Ensure to replace with your backend IP during dev
-const BASE_URL = 'http://192.168.1.100:3000'; // Replace with the actual URL
+import { API_BASE_URL } from '../config/api';
 
 export const apiClient = axios.create({
-  baseURL: BASE_URL,
+  baseURL: API_BASE_URL,
   timeout: 10000,
 });
 
@@ -60,10 +58,8 @@ export const apiService = {
   async postUpload(formData: FormData) {
     const isConnected = (await Network.getNetworkStateAsync()).isConnected;
     if (!isConnected) {
-      // Note: pushing FormData to queue might require serializing file URIs instead
-      // but for MVP purposes assuming simple object queue
       await storageService.pushToQueue('upload_queue', { timestamp: new Date().toISOString() });
-      return { success: false, queued: true };
+      return { success: false, queued: true as const };
     }
 
     try {
@@ -72,10 +68,10 @@ export const apiService = {
           'Content-Type': 'multipart/form-data',
         },
       });
-      return { success: true, data: res.data };
+      return { success: true, data: res.data, queued: false as const };
     } catch (error) {
        await storageService.pushToQueue('upload_queue', { timestamp: new Date().toISOString() });
-       return { success: false, queued: true };
+       return { success: false, queued: true as const };
     }
   }
 };

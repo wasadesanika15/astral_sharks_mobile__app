@@ -1,0 +1,10 @@
+# Environment Variables for Government Dashboard
+# Add this to your government web app's .env file
+
+# Astral Sharks Backend API
+REACT_APP_API_URL=http://localhost:3000
+REACT_APP_SOCKET_URL=http://localhost:3000
+
+# For production, update these to your actual backend URL:
+# REACT_APP_API_URL=https://api.astralsharks.gov
+# REACT_APP_SOCKET_URL=https://api.astralsharks.gov

@@ -1,0 +1,26 @@
+{
+  "name": "astral-sharks-api",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Express + Socket.IO API for Astral Sharks mobile app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "NODE_ENV=development node server.js",
+    "setup-db": "./setup-db.sh",
+    "test-db": "node -e \"const db = require('./database'); db.testConnection().then(() => console.log('✅ Database connected')).catch(console.error); db.close();\""
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.3.1",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^1.4.5-lts.2",
+    "pg": "^8.20.0",
+    "socket.io": "^4.8.1"
+  }
+}
